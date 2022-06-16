@@ -1,21 +1,15 @@
-networks:
-  app-net:
-    driver: bridge
-
+version: '2'
 services:
-  front:
-    container_name: appfront
-    image: localhost/front:latest
-    networks:
-      - app-net
+  frontproxy:
+    image: front:latest
     ports:
       - "8081:8081"
     depends_on:
-      - back
-  back:
-    container_name: appback
-    image: localhost/back:latest
-    networks:
-      - app-net
+      - appsrv
+    restart: always
+
+  appsrv:
+    image: back:latest
     ports:
-      - "8080:8080"
+      - "5000:5000"
+    restart: always

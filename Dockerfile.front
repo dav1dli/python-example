@@ -2,5 +2,5 @@ FROM registry.access.redhat.com/ubi9/nginx-120:1-39
 COPY --chown=default:root index.html $HOME
 COPY --chown=default:root default.conf "${NGINX_CONFIGURATION_PATH}"
 COPY --chown=default:root api.conf "${NGINX_DEFAULT_CONF_PATH}"
-EXPOSE 8081
+EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
