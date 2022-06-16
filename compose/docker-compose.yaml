@@ -1,0 +1,21 @@
+networks:
+  app-net:
+    driver: bridge
+
+services:
+  front:
+    container_name: appfront
+    image: localhost/front:latest
+    networks:
+      - app-net
+    ports:
+      - "8081:8081"
+    depends_on:
+      - back
+  back:
+    container_name: appback
+    image: localhost/back:latest
+    networks:
+      - app-net
+    ports:
+      - "8080:8080"

@@ -1,7 +1,4 @@
-# syntax=docker/dockerfile:1
-FROM registry.access.redhat.com/ubi8/python-38:1-86.1648121386
-USER root
-
+FROM registry.access.redhat.com/ubi9/python-39:1-52
 USER default
 ENV PATH="$HOME/bin:$PATH"
 WORKDIR $HOME
