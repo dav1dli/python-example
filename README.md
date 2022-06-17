@@ -66,7 +66,10 @@ Delete helm release: `helm delete python-example --namespace python-example`
 ## Reverse proxy
 An example of a front-end NGINX server serving static content and redirecting to a back-end app server when a path is acessed is in Dockerfile.front. 
 
-The static service is accessible at http://localhost:8080/ . When http://localhost:8080/api is accessed it redirects to the app server.
+### Local testing with compose
+The static service is accessible at http://localhost:8080/ .
+
+When http://localhost:8080/api is accessed it redirects to the app server.
 
 Compose start: `cd compose; docker-compose up`
 
@@ -75,3 +78,8 @@ Test static: `curl http://localhost:8080/`
 Test app redirect: `curl http://localhost:8080/api`
 
 Compose stop: `cd compose; docker-compose stop`  
+
+### Helm
+
+Helm chart shows how to put together the frontend and the backend containers in the same pod so they share the same local network.
+Also, the static web content and the reverse proxy configuration are provided as ConfigMaps mounted as files. 
