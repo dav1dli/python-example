@@ -56,3 +56,16 @@ helm install python-example oci:///$REGISTRY/helm/python-example \
 Test helm release: `helm test python-example --namespace python-example`
 
 Delete helm release: `helm delete python-example --namespace python-example`
+
+## Reverse proxy
+An example of a front-end NGINX server serving static content and redirecting to a back-end app server when a path is acessed is in Dockerfile.front. 
+
+The static service is accessible at http://localhost:8080/ . When http://localhost:8080/api is accessed it redirects to the app server.
+
+Compose start: `cd compose; docker-compose up`
+
+Test static: `curl http://localhost:8080/`
+
+Test app redirect: `curl http://localhost:8080/api`
+
+Compose stop: `cd compose; docker-compose stop`  

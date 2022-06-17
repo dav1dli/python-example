@@ -3,13 +3,17 @@ services:
   frontproxy:
     image: front:latest
     ports:
-      - "8081:8081"
-    depends_on:
-      - appsrv
-    restart: always
+      - "8080:8080"
+    networks:
+      - front
 
   appsrv:
     image: back:latest
     ports:
       - "5000:5000"
-    restart: always
+    networks:
+      - front
+
+networks:
+  front:
+    driver: bridge
