@@ -5,12 +5,17 @@
 replicaCount: 1
 
 image:
-  repository: dltestacr1.azurecr.io/devops-sandbox/python-example
+  repository: ACR.azurecr.io/project/python-example
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-
+frontImage:
+  repository: ACR.azurecr.io/project/webserver
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+  
 imagePullSecret:
   # Specifies whether a pull secret should be created
   create: true
@@ -50,6 +55,10 @@ service:
   type: ClusterIP
   port: 5000
 
+frontService:
+  type: ClusterIP
+  port: 8080
+
 ingress:
   enabled: false
   className: ""
@@ -78,6 +87,14 @@ resources:
     cpu: 50m
     memory: 128Mi
 
+frontResources:
+  limits:
+    cpu: 100m
+    memory: 256Mi
+  requests:
+    cpu: 50m
+    memory: 128Mi
+    
 autoscaling:
   enabled: false
   minReplicas: 1

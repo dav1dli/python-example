@@ -47,6 +47,37 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+        - name: {{ .Chart.Name }}-front
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.frontImage.repository }}:{{ .Values.frontImage.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.frontImage.pullPolicy }}
+          ports:
+            - name: front-http
+              containerPort: {{ .Values.frontService.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: front-http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: front-http
+          resources:
+            {{- toYaml .Values.frontResources | nindent 12 }}
+          volumeMounts:
+            - name: nginx-data
+              mountPath: /opt/app-root/src
+            - name: nginx-api
+              mountPath: /opt/app-root/etc/nginx.default.d
+      volumes:
+        - name: nginx-data
+          configMap:
+            name: {{ include "python-example.fullname" . }}-configmap
+        - name: nginx-api
+          configMap:
+            name: {{ include "python-example.fullname" . }}-api
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
