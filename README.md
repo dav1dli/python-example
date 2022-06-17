@@ -29,6 +29,13 @@ Test running container: `curl http://localhost:5000`
 
 Expected result: "Hello from Flask & Docker"
 
+## Docker compose
+
+Folder compose contains a file allowing starting the service using docker-compose.
+It is especially useful when several containers tied together as an app have to be started.
+
+Start app: `cd compose; docker-compose up`
+
 ## Container and Helm commands
 
 The application container is built and published to a container registry. The helm chart is built and published to a helm repositiry.
@@ -42,7 +49,6 @@ Helm add repo: `helm repo add apprepo https://$REGISTRY/helm/v1/repo --username 
 Pull chart: `helm pull oci://$REGISTRY/helm/python-example`
 
 ## Deployment to k8s
-
 
 Install helm release:
 
